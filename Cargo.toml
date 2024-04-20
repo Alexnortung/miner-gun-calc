@@ -8,3 +8,4 @@ license = "MIT"
 
 [dependencies]
 array2d = "0.3.2"
+dyn-clone = "1.0.17"

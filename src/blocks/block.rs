@@ -1,3 +1,5 @@
+use dyn_clone::DynClone;
+
 #[derive(Debug, Clone)]
 enum Direction {
     North,
@@ -11,20 +13,28 @@ enum Direction {
 //     fn direction(&self) -> Direction;
 // }
 
-#[derive(Debug, Clone)]
-struct DamageInstance {
-    value: u64,
-    direction: Direction,
-}
+// #[derive(Debug, Clone)]
+// struct DamageInstance {
+//     value: u64,
+//     direction: Direction,
+// }
+//
+// impl DamageInstance {
+//     fn value(&self) -> u64 {
+//         self.value
+//     }
+//
+//     fn set_value(&mut self, new_value: u64) {
+//         self.value = new_value;
+//     }
+// }
 
-impl DamageInstance {
-    fn value(&self) -> u64 {
-        self.value
-    }
+type Damage = f64;
 
-    fn set_value(&mut self, new_value: u64) {
-        self.value = new_value;
-    }
+trait DamageInstance: DynClone {
+    fn value(&self) -> Damage;
+    fn add(&self, value: Damage) -> dyn DamageInstance;
+    fn multiply_with_probability(&self, multiplier: f64, probability: f64) -> dyn DamageInstance;
 }
 
 struct DirectionInstances {
